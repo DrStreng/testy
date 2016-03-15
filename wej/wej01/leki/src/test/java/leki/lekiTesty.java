@@ -27,6 +27,8 @@ public void testAdd() throws Exception {
     lekimanager.add(l1);
     lekis = lekimanager.getAll();
     assertEquals(lekis.size(), 2);
+    
+    assertNotEquals(lekis.size(), 3);
 
 }
 @Test
@@ -37,13 +39,9 @@ public void testGetAll() throws Exception {
     ArrayList<Leki> lekis = lekimanager.getAll();
     assertEquals(lekis.get(0).name, "Apap");
     assertEquals(lekis.get(0).cena, 15);
+    assertFalse(lekis.isEmpty());
+   
 
-
-    lekimanager.add(l2);
-    lekis = lekimanager.getAll();
-    assertEquals(lekis.get(1).name, "Paracetamol");
-    assertEquals(lekis.get(1).cena, 5);
- 
 }
 
 
