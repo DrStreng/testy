@@ -40,7 +40,6 @@ public class MockitoAppTest {
 		assertThat(messenger.testConnection(VALID_SERVER), equalTo(0));
 		assertThat(messenger.sendMessage(VALID_SERVER, VALID_MESSAGE),
 				either(equalTo(0)).or(equalTo(1)));
-
 		verify(msMock, atLeastOnce()).send(VALID_SERVER, VALID_MESSAGE);
 	}
 
@@ -53,7 +52,6 @@ public class MockitoAppTest {
 				SendingStatus.SENDING_ERROR);
 		assertThat(messenger.testConnection(INVALID_SERVER), equalTo(1));
 		assertEquals(1, messenger.sendMessage(INVALID_SERVER, VALID_MESSAGE));
-
 		verify(msMock).checkConnection(INVALID_SERVER);
 	}
 
@@ -62,9 +60,7 @@ public class MockitoAppTest {
 
 		when(msMock.send(VALID_SERVER, INVALID_MESSAGE)).thenThrow(
 				new MalformedRecipientException());
-
 		assertEquals(2, messenger.sendMessage(VALID_SERVER, INVALID_MESSAGE));
-
 		verify(msMock).send(VALID_SERVER, INVALID_MESSAGE);
 	}
 	
@@ -72,9 +68,7 @@ public class MockitoAppTest {
 	public void sendingConnectionStatus() {
 
 		ArgumentCaptor<String> capturedServer = ArgumentCaptor.forClass(String.class);
-
-		
-
+		assertEquals(ConnectionStatus.SUCCESS, msMock.checkConnection(VALID_SERVER));
 		verify(msMock).checkConnection(capturedServer.capture());
 	}
 	
