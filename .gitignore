@@ -20,6 +20,7 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+.DS_Store
 
 # Eclipse Core
 .project
@@ -32,4 +33,3 @@ local.properties
 
 # Java annotation processor (APT)
 .factorypath
-
