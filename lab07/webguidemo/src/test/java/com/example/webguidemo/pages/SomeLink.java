@@ -4,7 +4,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.jbehave.web.selenium.WebDriverPage;
 import org.jbehave.web.selenium.WebDriverProvider;
-import org.openqa.selenium.By;
 
 public class SomeLink extends WebDriverPage{
 	
