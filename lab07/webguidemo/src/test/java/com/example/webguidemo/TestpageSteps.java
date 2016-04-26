@@ -26,10 +26,8 @@ public class TestpageSteps {
     @When("user click some link")
     public void userClicksOnSomeLink() throws AWTException{ 
     	Robot robot = new Robot();
-    	robot.keyPress(KeyEvent.VK_PAGE_DOWN);
-    	robot.keyRelease(KeyEvent.VK_PAGE_DOWN);
-//    	robot.keyPress(KeyEvent.VK_END);
-//    	robot.keyRelease(KeyEvent.VK_END);
+    	robot.keyPress(KeyEvent.VK_END);
+    	robot.keyRelease(KeyEvent.VK_END);
         pages.home().clickSomeLink();
     }
 
@@ -40,8 +38,11 @@ public class TestpageSteps {
     }
     
     @When("user click Submit")
-    public void clickSubmit() throws InterruptedException{
+    public void clickSubmit() throws InterruptedException, AWTException{
     	pages.home().open();
+    	Robot robot = new Robot();
+    	robot.keyPress(KeyEvent.VK_END);
+    	robot.keyRelease(KeyEvent.VK_END);
     	pages.home().clickVerButton();
     }
     
@@ -75,9 +76,13 @@ public class TestpageSteps {
     public void alertCheck() throws InterruptedException{
     	assertEquals("Please share this website with your friends and in your organization.", pages.home().alertCheck());	
     }
+    
     @When("user click on /a/span/ link")
-    public void spanLink() throws InterruptedException{
+    public void spanLink() throws InterruptedException, AWTException{
     	pages.home().open();
+    	Robot robot = new Robot();
+    	robot.keyPress(KeyEvent.VK_END);
+    	robot.keyRelease(KeyEvent.VK_END);
     	pages.home().clickTestLink();
     }
     @Then("create PrSc")

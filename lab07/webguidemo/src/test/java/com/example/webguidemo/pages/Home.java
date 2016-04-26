@@ -22,7 +22,6 @@ public class Home extends WebDriverPage {
 		driver = driverProvider.get();
 	}
 
-
 	public void open() {
 		get("http://www.seleniumframework.com/Practiceform/");
 		manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
