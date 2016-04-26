@@ -26,8 +26,8 @@ public class TestpageSteps {
     @When("user click some link")
     public void userClicksOnSomeLink() throws AWTException{ 
     	Robot robot = new Robot();
-    	robot.keyPress(KeyEvent.VK_PAGE_DOWN);
-    	robot.keyRelease(KeyEvent.VK_PAGE_DOWN);
+    	robot.keyPress(KeyEvent.VK_END);
+    	robot.keyRelease(KeyEvent.VK_END);
         pages.home().clickSomeLink();
     }
 
