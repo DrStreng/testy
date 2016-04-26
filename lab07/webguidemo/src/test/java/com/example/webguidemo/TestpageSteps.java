@@ -1,5 +1,10 @@
 package com.example.webguidemo;
 import static org.junit.Assert.*;
+
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
@@ -19,7 +24,10 @@ public class TestpageSteps {
     }
  
     @When("user click some link")
-    public void userClicksOnSomeLink(){        
+    public void userClicksOnSomeLink() throws AWTException{ 
+    	Robot robot = new Robot();
+    	robot.keyPress(KeyEvent.VK_PAGE_DOWN);
+    	robot.keyRelease(KeyEvent.VK_PAGE_DOWN);
         pages.home().clickSomeLink();
     }
 
@@ -30,27 +38,27 @@ public class TestpageSteps {
     }
     
     @When("user click Submit")
-    public void clickSubmit(){
+    public void clickSubmit() throws InterruptedException{
     	pages.home().open();
     	pages.home().clickVerButton();
     }
     
     @Then("This field is required alert validator is shown")
-    public void valIsReq(){
+    public void valIsReq() throws InterruptedException{
     	assertNotNull(pages.home().findValidatorMessageRequired());
     }
     @When("user types $digits in field")
-    public void typeText(String digits){
+    public void typeText(String digits) throws InterruptedException{
     	pages.home().clearValue();
     	pages.home().typeValue(digits);
     }
     @Then("msg validation show $msg")
-    public void valIsReqTooManyNumbers(String msg){
+    public void valIsReqTooManyNumbers(String msg) throws InterruptedException{
     	assertEquals(msg, pages.home().validMsg());
     }
     
     @Then("user pass a validation")
-    public void passValid(){
+    public void passValid() throws InterruptedException{
     	pages.home().clickVerButton();
     	assertNotNull(pages.verLink().checkElement());
     }
@@ -62,16 +70,16 @@ public class TestpageSteps {
     }
 
     @Then("alert is shown")
-    public void alertCheck(){
+    public void alertCheck() throws InterruptedException{
     	assertEquals("Please share this website with your friends and in your organization.", pages.home().alertCheck());	
     }
     @When("user click on /a/span/ link")
-    public void spanLink(){
+    public void spanLink() throws InterruptedException{
     	pages.home().open();
     	pages.home().clickTestLink();
     }
     @Then("create PrSc")
-    public void createPrSc(){
+    public void createPrSc() throws InterruptedException{
     	//assertTrue(true);
     	assertTrue(pages.home().createPrSc());
     }

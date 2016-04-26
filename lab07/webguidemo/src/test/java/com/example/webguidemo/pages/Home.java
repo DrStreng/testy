@@ -29,26 +29,32 @@ public class Home extends WebDriverPage {
 	}
 	
 	public void clickSomeLink(){
-		findElement(By.xpath("//*[@id='recent-posts-3']/ul/li[1]/a")).click();
+		findElement(By.linkText("Setup Visual Studio")).click();
+		//findElement(By.xpath("//*[@id='recent-posts-3']/ul/li[1]/a")).click();
 		manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	}
 	
 	public void clickAlertButton() throws InterruptedException{
-		findElement(By.xpath("//*[@id='alert']")).click();
 		Thread.sleep(2000);
+		findElement(By.xpath("//*[@id='alert']")).click();
+		
 	}
 	
-	public String alertCheck(){
+	public String alertCheck() throws InterruptedException{
+		Thread.sleep(2000);
 			Alert simpleAlert = driver.switchTo().alert();
 			String alertText = simpleAlert.getText();
 			simpleAlert.accept();
 			return alertText;
 	}
 	
-	public void clickVerButton(){
-		findElement(By.id("vfb-4")).click();
+	public void clickVerButton() throws InterruptedException{
+		Thread.sleep(2000);
+		findElement(By.xpath("//*[@id='vfb-4']")).click();
+		//findElement(By.id("vfb-4")).click();
 	}
-	public boolean findValidatorMessageRequired(){
+	public boolean findValidatorMessageRequired() throws InterruptedException{
+		Thread.sleep(2000);
 		WebElement pom = findElement(By.xpath("//*[contains(text(),'This field is required.')]"));
 		if (pom != null){
 			 return true;
@@ -56,27 +62,32 @@ public class Home extends WebDriverPage {
 			return false;
 		}
 	}
-	public void clearValue() {
+	public void clearValue() throws InterruptedException {
+		Thread.sleep(2000);
 		findElement(By.xpath("//*[@id='vfb-3']")).clear();
 	}
 
 
-	public void typeValue(String digits) {
+	public void typeValue(String digits) throws InterruptedException {
+		Thread.sleep(2000);
 		findElement(By.xpath("//*[@id='vfb-3']")).sendKeys(digits);
 	}
 
 
-	public String validMsg() {
+	public String validMsg() throws InterruptedException {
+		Thread.sleep(2000);
 		return findElement(By.xpath("//*[@id='item-vfb-2']/ul/li[1]/span/label[1]")).getText();
 	}
 
 
-	public void clickTestLink() {
+	public void clickTestLink() throws InterruptedException {
+		Thread.sleep(2000);
 		findElement(By.linkText("Find Element Strategies")).click();
 	}
 
 
-	public boolean createPrSc() {
+	public boolean createPrSc() throws InterruptedException {
+		Thread.sleep(2000);
 		File prsc = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		try{
 			FileUtils.copyFile(prsc, new File("testlink.png"));
