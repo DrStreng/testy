@@ -22,21 +22,13 @@ public class TestpageSteps {
     public void userIsOnHomePage(){        
         pages.home().open();        
     }
- 
-    @When("user click some link")
-    public void userClicksOnSomeLink() throws AWTException{ 
+    @When("user click $some link")
+    public void userClicksOnSomeLink(String some) throws AWTException, InterruptedException { 
     	Robot robot = new Robot();
     	robot.keyPress(KeyEvent.VK_END);
     	robot.keyRelease(KeyEvent.VK_END);
-        pages.home().clickSomeLink();
+        pages.home().clickTestLink(some);
     }
-
-    @Then("some page is shown")
-    public void somePageIsShown(){
-       assertEquals("Selenium Framework | Setup Visual Studio", pages.somelink().getTitle());
-       assertNotNull(true);
-    }
-    
     @When("user click Submit")
     public void clickSubmit() throws InterruptedException, AWTException{
     	pages.home().open();
@@ -45,49 +37,59 @@ public class TestpageSteps {
     	robot.keyRelease(KeyEvent.VK_END);
     	pages.home().clickVerButton();
     }
-    
-    @Then("This field is required alert validator is shown")
-    public void valIsReq() throws InterruptedException{
-    	assertNotNull(pages.home().findValidatorMessageRequired());
-    }
     @When("user types $digits in field")
     public void typeText(String digits) throws InterruptedException{
     	pages.home().clearValue();
     	pages.home().typeValue(digits);
     }
-    @Then("msg validation show $msg")
-    public void valIsReqTooManyNumbers(String msg) throws InterruptedException{
-    	assertEquals(msg, pages.home().validMsg());
-    }
-    
-    @Then("user pass a validation")
-    public void passValid() throws InterruptedException{
-    	pages.home().clickVerButton();
-    	assertNotNull(pages.verLink().checkElement());
-    }
-    
     @When("user click alert button")
     public void userClicksOnAlert() throws InterruptedException{
     	pages.home().open();
         pages.home().clickAlertButton();
     }
-
-    @Then("alert is shown")
-    public void alertCheck() throws InterruptedException{
-    	assertEquals("Please share this website with your friends and in your organization.", pages.home().alertCheck());	
+    @When("user click on change color button")
+    public void colorButton() throws AWTException, InterruptedException{
+    	pages.home().open();
+    	Robot robot = new Robot();
+    	robot.keyPress(KeyEvent.VK_DOWN);
+    	robot.keyRelease(KeyEvent.VK_DOWN);
+    	pages.home().clickColorButton();
     }
-    
-    @When("user click on /a/span/ link")
-    public void spanLink() throws InterruptedException, AWTException{
+    @When("user click on checkBox")
+    public void clickCheckBox() throws AWTException, InterruptedException{
     	pages.home().open();
     	Robot robot = new Robot();
     	robot.keyPress(KeyEvent.VK_END);
     	robot.keyRelease(KeyEvent.VK_END);
-    	pages.home().clickTestLink();
+    	pages.home().clickCheckBox();
+    }
+    @Then("color is $color")
+    public void checkColor(String color){
+    	assertEquals(color,pages.home().getColor());
+    }
+    @Then("Setup Visual Studio page is shown")
+    public void somePageIsShown(){
+       assertEquals("Selenium Framework | Setup Visual Studio", pages.somelink().getTitle());  
     }
     @Then("create PrSc")
     public void createPrSc() throws InterruptedException{
-    	//assertTrue(true);
     	assertTrue(pages.home().createPrSc());
+    }
+    @Then("msg validation show $msg")
+    public void errorValid(String msg) throws InterruptedException{
+    	assertEquals(msg, pages.home().validMsg());
+    }
+    @Then("user pass a validation")
+    public void passValid() throws InterruptedException{
+    	pages.home().clickVerButton();
+    	assertNotNull(pages.verLink().checkElement());
+    }
+    @Then("alert is shown")
+    public void alertCheck() throws InterruptedException{
+    	assertEquals("Please share this website with your friends and in your organization.", pages.home().alertCheck());	
+    }
+    @Then("checkBox is selected")
+    public void checkBoxValid(){
+    	assertTrue(pages.home().checkBoxValid());
     }
 }

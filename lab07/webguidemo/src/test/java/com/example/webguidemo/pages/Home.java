@@ -12,6 +12,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.Alert;
 
 public class Home extends WebDriverPage {
@@ -27,20 +28,19 @@ public class Home extends WebDriverPage {
 		manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	}
 	
-	public void clickSomeLink(){
-		findElement(By.linkText("Setup Visual Studio")).click();
-		//findElement(By.xpath("//*[@id='recent-posts-3']/ul/li[1]/a")).click();
-		manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+	public void clickTestLink(String some) throws InterruptedException {
+		Thread.sleep(200);
+		findElement(By.linkText(some)).click();
 	}
 	
 	public void clickAlertButton() throws InterruptedException{
-		Thread.sleep(2000);
+		Thread.sleep(200);
 		findElement(By.xpath("//*[@id='alert']")).click();
 		
 	}
 	
 	public String alertCheck() throws InterruptedException{
-		Thread.sleep(2000);
+			Thread.sleep(200);
 			Alert simpleAlert = driver.switchTo().alert();
 			String alertText = simpleAlert.getText();
 			simpleAlert.accept();
@@ -48,45 +48,27 @@ public class Home extends WebDriverPage {
 	}
 	
 	public void clickVerButton() throws InterruptedException{
-		Thread.sleep(2000);
+		Thread.sleep(200);
 		findElement(By.xpath("//*[@id='vfb-4']")).click();
-		//findElement(By.id("vfb-4")).click();
 	}
-	public boolean findValidatorMessageRequired() throws InterruptedException{
-		Thread.sleep(2000);
-		WebElement pom = findElement(By.xpath("//*[contains(text(),'This field is required.')]"));
-		if (pom != null){
-			 return true;
-		}else {
-			return false;
-		}
-	}
+
 	public void clearValue() throws InterruptedException {
-		Thread.sleep(2000);
+		Thread.sleep(200);
 		findElement(By.xpath("//*[@id='vfb-3']")).clear();
 	}
 
-
 	public void typeValue(String digits) throws InterruptedException {
-		Thread.sleep(2000);
+		Thread.sleep(200);
 		findElement(By.xpath("//*[@id='vfb-3']")).sendKeys(digits);
 	}
 
-
 	public String validMsg() throws InterruptedException {
-		Thread.sleep(2000);
+		Thread.sleep(200);
 		return findElement(By.xpath("//*[@id='item-vfb-2']/ul/li[1]/span/label[1]")).getText();
 	}
-
-
-	public void clickTestLink() throws InterruptedException {
-		Thread.sleep(2000);
-		findElement(By.linkText("Find Element Strategies")).click();
-	}
-
-
+	
 	public boolean createPrSc() throws InterruptedException {
-		Thread.sleep(2000);
+		Thread.sleep(200);
 		File prsc = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		try{
 			FileUtils.copyFile(prsc, new File("testlink.png"));
@@ -95,7 +77,30 @@ public class Home extends WebDriverPage {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	public void clickCheckBox() throws InterruptedException {
+		if ( !driver.findElement(By.xpath("//*[@id='vfb-6-0']")).isSelected() )
+		{
+		     driver.findElement(By.xpath("//*[@id='vfb-6-0']")).click();
+		     Thread.sleep(200);
+		}
 		
+	}
+
+	public boolean checkBoxValid() {
+		return findElement(By.xpath("//*[@id='vfb-6-0']")).isSelected();
+	}
+
+	public void clickColorButton() throws InterruptedException {
+		Actions action = new Actions(driver);
+		action.moveToElement(driver.findElement(By.xpath("//*[@id='doubleClick']"))).doubleClick().perform();
+		Thread.sleep(200);
+	}
+
+	public String getColor() {
+		//System.out.println(findElement(By.xpath("//*[@id='doubleClick']")).getCssValue("color"));
+		return findElement(By.xpath("//*[@id='doubleClick']")).getCssValue("color");	
 	}
 	
 	
