@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -16,13 +17,11 @@ public class BLTest {
 	PersonManager pm = new PersonManager();
 
 	
-	@Test
+	@Before
 	public void checkDeleteDB(){
 		pm.clearCars();
 		pm.clearPersons();
-		assertEquals(0,pm.getAllPersons().size());
 	}
-	
 	
 	@Test
 	public void checkCarAdding() {
@@ -50,6 +49,19 @@ public class BLTest {
 		assertEquals(1,pm.addPersonWithId(p));
 	}
 	
+	@Test
+	public void getPersonById(){
+		Person p = new Person();
+		p.setId(2);
+		p.setFirstName("Placek");
+		p.setYob(1992);
+		pm.addPersonWithId(p);
+		
+		Person first = pm.getPerson(p.getId());
+		assertEquals(2,first.getId());
+		assertEquals("Placek",first.getFirstName());
+	}
+
 	@Ignore
 	@Test
 	public void checkSell() {

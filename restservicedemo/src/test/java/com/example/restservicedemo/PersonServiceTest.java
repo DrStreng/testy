@@ -6,8 +6,6 @@ import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalToIgnoringCase;
 
-import java.util.List;
-
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItems;
 
@@ -32,7 +30,7 @@ public class PersonServiceTest {
 		RestAssured.port = 8080;
 		RestAssured.basePath = "/restservicedemo/api";   	
     }
-	@Ignore
+	
 	@Test
 	public void clearPersons() {
 		delete("/person/deletePersons/").then().assertThat().statusCode(200);
@@ -43,7 +41,7 @@ public class PersonServiceTest {
 	    .then()
 	    	.body("", Matchers.hasSize(0));
 	}
-	@Ignore
+	
 	@Test
 	public void clearCars() {
 		delete("/person/deleteCars/").then().assertThat().statusCode(200);
@@ -54,7 +52,7 @@ public class PersonServiceTest {
 	    .then()
 	    	.body("", Matchers.hasSize(0));
 	}
-	@Ignore
+	
 	@Test
 	public void addPersons(){		
 		
@@ -68,7 +66,7 @@ public class PersonServiceTest {
 			Person rPerson = get("/person/1").as(Person.class);
 			assertThat(PERSON_FIRST_NAME, equalToIgnoringCase(rPerson.getFirstName()));
 	}
-	@Ignore
+	
 	@Test
 	public void addCars(){		
 		delete("/person/deleteCars/").then().assertThat().statusCode(200);
@@ -99,7 +97,6 @@ public class PersonServiceTest {
 		.when()
 			.post("/person/add").then().assertThat().statusCode(201);
 
-		
 		given()
 		.when()
 			.get("/person/getAll")
@@ -112,6 +109,53 @@ public class PersonServiceTest {
 			.body("person[1].yob", equalTo("1972"))
 		
 			.body("person.id", hasItems("1","2"));
+	}
+	
+	@Test
+	public void getCarWithOwner(){
+		delete("/person/deleteCars/").then().assertThat().statusCode(200);
+		delete("/person/deletePersons/").then().assertThat().statusCode(200);
+		Person person1 = new Person(1,"Jeden", 1971);
+		Car car1 = new Car(1,"Fiat",1999);
+		given()
+			.contentType(MediaType.APPLICATION_JSON)
+			.body(person1)
+		.when()
+			.post("/person/add").then().assertThat().statusCode(201);
+		given()
+			.contentType(MediaType.APPLICATION_JSON)
+			.body(car1)
+		.when()
+			.post("/person/addCarWithId").then().assertThat().statusCode(201);
+		
+		given()
+		.when()
+			.get("/person/car/1")
+		.then()
+			.body("id", equalTo("1"))
+			.body("model", equalTo("Fiat"))
+			.body("yop", equalTo("1999"))
+			.body("owner.id", equalTo("1"))
+			.body("owner.firstName", equalTo("Jeden"))
+			.body("owner.yob", equalTo("1971"));
+	}
+	@Ignore
+	@Test
+	public void getCarWithOwnerStmt(){
+		delete("/person/deleteCars/").then().assertThat().statusCode(200);
+		Person person1 = new Person(1,"Jeden", 1971);
+		given()
+			.contentType(MediaType.APPLICATION_JSON)
+			.body(person1)
+		.when()
+			.post("/person/add").then().assertThat().statusCode(201);
+		
+		Car car1 = new Car(1,"Fiat", 1971);
+		given()
+			.contentType(MediaType.APPLICATION_JSON)
+			.body(car1)
+		.when()
+			.post("/person/addCarWithId").then().assertThat().statusCode(201);
 		
 	}
 	
