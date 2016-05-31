@@ -8,6 +8,9 @@ import static org.hamcrest.Matchers.equalToIgnoringCase;
 
 import java.util.List;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
+
 import javax.ws.rs.core.MediaType;
 
 import org.hamcrest.Matchers;
@@ -89,15 +92,26 @@ public class PersonServiceTest {
 			.body(person1)
 		.when()
 			.post("/person/add").then().assertThat().statusCode(201);
+		
 		given()
 			.contentType(MediaType.APPLICATION_JSON)
 			.body(person2)
 		.when()
 			.post("/person/add").then().assertThat().statusCode(201);
-			Person[] persons = given().when().get("/person/getAll").as(Person[].class);
-					
-					
+
 		
+		given()
+		.when()
+			.get("/person/getAll")
+		.then()
+			.body("person[0].id", equalTo("1"))
+			.body("person[0].firstName", equalTo("Jeden"))
+			.body("person[0].yob", equalTo("1971"))
+			.body("person[1].id", equalTo("2"))
+			.body("person[1].firstName",equalTo("Dwa"))
+			.body("person[1].yob", equalTo("1972"))
+		
+			.body("person.id", hasItems("1","2"));
 		
 	}
 	

@@ -15,12 +15,14 @@ public class BLTest {
 
 	PersonManager pm = new PersonManager();
 
-	@Ignore
+	
 	@Test
-	public void checkDeletePersons(){
+	public void checkDeleteDB(){
+		pm.clearCars();
 		pm.clearPersons();
 		assertEquals(0,pm.getAllPersons().size());
 	}
+	
 	
 	@Test
 	public void checkCarAdding() {
@@ -31,7 +33,6 @@ public class BLTest {
 		assertEquals(1, pm.addCarWithId(c));
 	}
 
-	@Ignore
 	@Test
 	public void checkPersonAddingWithoutId(){
 		Person p = new Person();
