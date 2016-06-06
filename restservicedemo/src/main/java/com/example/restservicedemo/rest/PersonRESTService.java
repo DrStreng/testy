@@ -69,14 +69,6 @@ public class PersonRESTService {
 		return Response.status(201).entity("Person").build(); 
 	}
 	
-//	@POST
-//	@Path("/update")
-//	public Response updateCar(){
-//		pm.sellCar(null, null);
-//		return Response.status(200).build();
-//	}
-	
-	
 	@POST
 	@Path("/addCarWithId")
 	@Consumes(MediaType.APPLICATION_JSON)

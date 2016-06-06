@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.example.restservicedemo.domain.Car;
@@ -62,7 +61,7 @@ public class BLTest {
 		assertEquals("Placek",first.getFirstName());
 	}
 
-	@Ignore
+	
 	@Test
 	public void checkSell() {
 		Car c1 = new Car();
