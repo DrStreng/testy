@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -21,6 +22,7 @@ public class BLTest {
 	private static Person person2;
 	private static Car car1;
 	private static Car car2;
+	private static Car car3;
 	
 	@BeforeClass
 	public static void setUp() {
@@ -28,6 +30,7 @@ public class BLTest {
 		person2 = new Person(2,"Placek",2000);
 		car1    = new Car(1,"BMW",2005);
 		car2    = new Car(2,"Opel",2003);
+		car3    = new Car(3,"Astra",2004);
 	}
 	
 	@Before
@@ -163,12 +166,38 @@ public class BLTest {
 	//11
 	@Test
 	public void getAllPersonsWithCars(){
+		pm.addCarWithId(car1);
+		pm.addCarWithId(car2);
+		pm.addCarWithId(car3);
+		pm.addPersonWithId(person1);
+		pm.addPersonWithId(person2);
 		
+		List<Person> persons = pm.getAllPersons();
+		List<Car> cars = pm.getAllCars();
+		
+		assertEquals(1,pm.sellCar(cars.get(0), persons.get(0)));
+		assertEquals(1,pm.sellCar(cars.get(1), persons.get(0)));
+		assertEquals(1,pm.sellCar(cars.get(2), persons.get(1)));
+		
+		Map<Person,List<Car>> m = pm.getPersonWithCar();
+		
+		assertEquals(2,m.size());
+		assertEquals(persons.get(0),m.get(persons.get(0)).get(0).getOwner());
+		assertEquals(persons.get(0),m.get(persons.get(0)).get(1).getOwner());
+		assertEquals(persons.get(1),m.get(persons.get(1)).get(0).getOwner());
 	}
 	//12
 	@Test
 	public void getCarWithOwner(){
+		pm.addPersonWithId(person2);
+		pm.addCarWithId(car1);
 		
+		
+		List<Person> persons = pm.getAllPersons();
+		List<Car> cars = pm.getAllCars();
+		assertEquals(1,pm.sellCar(cars.get(0), persons.get(0)));
+		Car c = pm.getCarWithOwner(cars.get(0));
+		assertEquals(persons.get(0),c.getOwner());
 	}
 	//13
 	@Test
