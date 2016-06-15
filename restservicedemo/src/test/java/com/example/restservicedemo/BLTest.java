@@ -2,9 +2,11 @@ package com.example.restservicedemo;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.example.restservicedemo.domain.Car;
@@ -15,22 +17,26 @@ public class BLTest {
 
 	PersonManager pm = new PersonManager();
 
+	private static Person person1;
+	private static Person person2;
+	private static Car car1;
+	private static Car car2;
+	
+	@BeforeClass
+	public static void setUp() {
+		person1 = new Person(1,"Jacek",1999);
+		person2 = new Person(2,"Placek",2000);
+		car1    = new Car(1,"BMW",2005);
+		car2    = new Car(2,"Opel",2003);
+	}
 	
 	@Before
-	public void checkDeleteDB(){
+	public void deleteDB(){
 		pm.clearCars();
 		pm.clearPersons();
 	}
 	
-	@Test
-	public void checkCarAdding() {
-		Car c = new Car();
-		c.setId(1);
-		c.setModel("Syrena");
-		c.setYop(1973);
-		assertEquals(1, pm.addCarWithId(c));
-	}
-
+	//1
 	@Test
 	public void checkPersonAddingWithoutId(){
 		Person p = new Person();
@@ -38,7 +44,7 @@ public class BLTest {
 		p.setYob(1992);
 		assertEquals(1,pm.addPerson(p));
 	}
-	
+	//2
 	@Test
 	public void checkPersonAddingWithId(){
 		Person p = new Person();
@@ -47,7 +53,62 @@ public class BLTest {
 		p.setYob(1992);
 		assertEquals(1,pm.addPersonWithId(p));
 	}
-	
+	//3
+	@Test
+	public void checkCarAddingWithoutId() {
+		Car c = new Car();
+		c.setModel("Syrena");
+		c.setYop(1973);
+		assertEquals(1, pm.addCar(c));
+	}
+	//4
+	@Test
+	public void checkCarAddingWithId() {
+		Car c = new Car();
+		c.setId(1);
+		c.setModel("Syrena");
+		c.setYop(1973);
+		assertEquals(1, pm.addCarWithId(c));
+	}
+	//5
+	@Test
+	public void deleteAllPersons(){
+		pm.addPerson(person1);
+		pm.addPerson(person2);
+		List<Person> persons;
+		persons = pm.getAllPersons();
+		assertEquals(2,persons.size());
+		pm.clearPersons();
+		persons = pm.getAllPersons();
+		assertEquals(0,persons.size());	
+	}
+	//6
+	@Test
+	public void deleteAllCars(){
+		pm.addCarWithId(car1);
+		pm.addCarWithId(car2);
+		List<Car> cars;
+		cars = pm.getAllCars();
+		assertEquals(2,cars.size());
+		pm.clearCars();
+		cars = pm.getAllCars();
+		assertEquals(0,cars.size());
+	}
+	//7
+	@Test
+	public void getAllPersons(){
+		pm.addPersonWithId(person1);
+		pm.addPersonWithId(person2);
+		List<Person> persons = new ArrayList<>();
+		persons = pm.getAllPersons();
+		
+		assertEquals(2,persons.size());
+		assertNotEquals("duplikat",persons.get(0),persons.get(1));
+		assertEquals(person1.getFirstName(),persons.get(0).getFirstName());
+		assertEquals(person2.getYob(),persons.get(1).getYob());
+		
+	}
+	//8
 	@Test
 	public void getPersonById(){
 		Person p = new Person();
@@ -60,8 +121,17 @@ public class BLTest {
 		assertEquals(2,first.getId());
 		assertEquals("Placek",first.getFirstName());
 	}
-
+	//9
+	@Test 
+	public void getCarById(){
+		pm.addCarWithId(car1);
+		Car c = pm.getCar(car1.getId());
+		assertEquals(1,c.getId());
+		assertEquals("BMW",c.getModel());
 	
+	}
+
+	//10
 	@Test
 	public void checkSell() {
 		Car c1 = new Car();
@@ -89,6 +159,29 @@ public class BLTest {
 		pm.sellCar(carToSell, owner);
 		Car rCar = pm.getCarWithOwner(carToSell);
 		assertEquals(owner.getFirstName(), rCar.getOwner().getFirstName());
+	}
+	//11
+	@Test
+	public void getAllPersonsWithCars(){
+		
+	}
+	//12
+	@Test
+	public void getCarWithOwner(){
+		
+	}
+	//13
+	@Test
+	public void getAllCars(){
+		pm.addCarWithId(car1);
+		pm.addCarWithId(car2);
+		List<Car> cars = new ArrayList<>();
+		cars = pm.getAllCars();
+		
+		assertEquals(2,cars.size());
+		assertNotEquals("duplikat",cars.get(0),cars.get(1));
+		assertEquals(car1.getModel(),cars.get(0).getModel());
+		assertEquals(car2.getYop(),cars.get(1).getYop());
 	}
 
 }
