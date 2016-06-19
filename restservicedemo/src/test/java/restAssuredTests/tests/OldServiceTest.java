@@ -1,4 +1,4 @@
-package com.example.restservicedemo;
+package restAssuredTests.tests;
 
 import static com.jayway.restassured.RestAssured.delete;
 import static com.jayway.restassured.RestAssured.get;
@@ -20,7 +20,7 @@ import com.example.restservicedemo.domain.Car;
 import com.example.restservicedemo.domain.Person;
 import com.jayway.restassured.RestAssured;
 
-public class PersonServiceTest {
+public class OldServiceTest {
 	
 	private static final String PERSON_FIRST_NAME = "Jasiu";
 	
@@ -98,6 +98,7 @@ public class PersonServiceTest {
 			.post("/person/add").then().assertThat().statusCode(201);
 
 		given()
+			.contentType("application/json")
 		.when()
 			.get("/person/getAll")
 		.then()
@@ -112,7 +113,7 @@ public class PersonServiceTest {
 	}
 	
 	@Test
-	public void getCarWithOwner(){
+	public void getCarById(){
 		delete("/person/deleteCars/").then().assertThat().statusCode(200);
 		delete("/person/deletePersons/").then().assertThat().statusCode(200);
 		Person person1 = new Person(1,"Jeden", 1971);
@@ -139,26 +140,4 @@ public class PersonServiceTest {
 			.body("owner.firstName", equalTo("Jeden"))
 			.body("owner.yob", equalTo("1971"));
 	}
-	@Ignore
-	@Test
-	public void getCarWithOwnerStmt(){
-		delete("/person/deleteCars/").then().assertThat().statusCode(200);
-		Person person1 = new Person(1,"Jeden", 1971);
-		given()
-			.contentType(MediaType.APPLICATION_JSON)
-			.body(person1)
-		.when()
-			.post("/person/add").then().assertThat().statusCode(201);
-		
-		Car car1 = new Car(1,"Fiat", 1971);
-		given()
-			.contentType(MediaType.APPLICATION_JSON)
-			.body(car1)
-		.when()
-			.post("/person/addCarWithId").then().assertThat().statusCode(201);
-		
-	}
-	
-	
-
 }

@@ -312,7 +312,7 @@ public class PersonManager {
 			while (rs.next()) {
 				c.setId(rs.getInt("c_id"));
 				c.setModel(rs.getString("model"));
-				c.setYop(rs.getInt("yob"));
+				c.setYop(rs.getInt("yop"));
 				break;
 			}
 

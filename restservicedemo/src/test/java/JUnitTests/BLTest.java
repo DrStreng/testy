@@ -1,4 +1,4 @@
-package com.example.restservicedemo;
+package JUnitTests;
 
 import static org.junit.Assert.*;
 

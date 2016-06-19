@@ -1,4 +1,4 @@
-package com.example.restservicedemo.helper;
+package restAssuredTests.helper;
 
 import java.io.FileOutputStream;
 import java.sql.Connection;
