@@ -1,25 +1,23 @@
 package restAssuredTests.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-
 import com.example.restservicedemo.domain.Car;
 import com.example.restservicedemo.domain.Person;
-import com.example.restservicedemo.service.PersonManager;
-
 import restAssuredTests.service.ServiceMockRESTDB;
 
 public class ServiceRESTDBTest extends DefaultRESTDB {
 	
 	ServiceMockRESTDB service = new ServiceMockRESTDB();
 	
-	@Test
+	
+	@After
 	public void shouldClearPersons(){
 		service.clearCars();
 		service.clearPersons();
@@ -109,6 +107,7 @@ public class ServiceRESTDBTest extends DefaultRESTDB {
 
 		service.getAllCarsData(myList);
 	}
+	@Ignore
 	@Test
 	public void sellCar(){
 		Car p1 = new Car();
@@ -133,6 +132,34 @@ public class ServiceRESTDBTest extends DefaultRESTDB {
 		service.sellCar(carToSell.get(0).getId(),owner.get(0).getId());
 		
 	}
+	
+	@Test
+	public void shouldGetCarWithOwner(){
+		Car p1 = new Car();
+		p1.setId(15);
+		p1.setModel("Mazda");
+		p1.setYop(2007);
+		
+		service.addCarData(p1.getModel(), p1.getId(), p1.getYop());
+		List<Car> carToSell = new ArrayList<Car>();
+		carToSell.add(p1);
+		
+		Person p = new Person();
+		p.setId(23);
+		p.setFirstName("Dawid");
+		p.setYob(1993);
+	
+		service.addPersonData(p.getFirstName(),p.getId() ,p.getYob());
+		
+		List<Person> owner = new ArrayList<Person>();
+		owner.add(p);
+		
+		service.sellCar(carToSell.get(0).getId(),owner.get(0).getId());
+		
+		service.shouldGetCarWithOwner(15,p1,p);
+
+	}
+	
 	
 	
 	

@@ -1,5 +1,7 @@
 package restAssuredTests.tests;
 
+import static com.jayway.restassured.RestAssured.delete;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Connection;
@@ -48,6 +50,10 @@ public class DefaultRESTDB {
 				new FileInputStream(new File("src/test/resources/fullData.xml")));
 		databaseTester.setDataSet(dataSet);
 		databaseTester.onSetup();
+		
+//		delete("/link/clearCars/").then().assertThat().statusCode(200);
+//		delete("/link/clearPerson/").then().assertThat().statusCode(200);
+		
 	}
 	
 }

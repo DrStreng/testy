@@ -119,11 +119,17 @@ public class LinksRESTService {
 		return Response.status(201).build();
 	}
 	
+	@GET
+	@Path("/getCarWithOwner/{ownerId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Car getCarWithOwner(@PathParam("ownerId") Long id){
+		Car c = pm.getCar(id);
+		return pm.getCarWithOwner(c);
+	}
+	
 //	getPersonWithCar
-//	getCarWithOwner
 	
-	
-	
+
 	
 	
 	

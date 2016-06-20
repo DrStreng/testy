@@ -148,11 +148,30 @@ public class ServiceMockRESTDB {
 		given()
 			.contentType("application/json")
 		.when()
-			.post("link/sellCar/"+l+"/"+m);
-		
-			
-	
+			.post("link/sellCar/"+l+"/"+m)
+		.then()
+			.assertThat()
+			.statusCode(201);
 	}
+
+	public void shouldGetCarWithOwner(int i, Car p1, Person p) {
+		
+		given()
+			.contentType("application/json")
+		.when()
+			.get("/link/getCarWithOwner/"+i)
+		.then()
+			.body("id",equalTo(Long.toString(p1.getId())))
+			.body("model", equalTo(p1.getModel()))
+			.body("yop", equalTo(Integer.toString(p1.getYop())))
+			.body("owner.id", equalTo(Long.toString(p.getId())))
+			.body("owner.firstName", equalTo(p.getFirstName()))
+			.body("owner.yob", equalTo(Integer.toString(p.getYob())));
+			
+	}
+	
+
+	
 	
 
 	
