@@ -13,7 +13,6 @@ import javax.ws.rs.core.MediaType;
 
 import org.hamcrest.Matchers;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.example.restservicedemo.domain.Car;

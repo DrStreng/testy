@@ -21,7 +21,7 @@ public class DefaultRESTDB {
 	
 	private static IDatabaseConnection connection ;
 	private static IDatabaseTester databaseTester;
-	private static PersonManager pm = new PersonManager();
+
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception{

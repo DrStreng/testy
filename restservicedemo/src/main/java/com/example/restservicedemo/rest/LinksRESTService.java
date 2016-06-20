@@ -104,8 +104,25 @@ public class LinksRESTService {
 /////OTHER////////////////////////////////////////////////////////////////////////////////	
 	
 //	sellCar
+	
+	@POST
+	@Path("/sellCar/{carToSellId}/{ownerId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response sellCar(
+			@PathParam("carToSellId")long carid,
+			@PathParam("ownerId")long personid
+			){
+		Car car = pm.getCar(carid);
+		Person person = pm.getPerson(personid);
+		
+		pm.sellCar(car, person);
+		return Response.status(201).build();
+	}
+	
 //	getPersonWithCar
 //	getCarWithOwner
+	
+	
 	
 	
 	

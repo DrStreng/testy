@@ -4,6 +4,9 @@ import static com.jayway.restassured.RestAssured.delete;
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
+
+import java.util.List;
 
 import javax.ws.rs.core.MediaType;
 
@@ -62,8 +65,20 @@ public class ServiceMockRESTDB {
 			.statusCode(200);
 	}
 	
-	public void getAllPersonsData(){
-		
+	public void getAllPersonsData(List<Person> myList){
+		given()
+			.contentType("application/json")
+		.when()
+			.get("/link/getAllPersons/")
+		.then()
+			.body("person[0].id",equalTo(Long.toString(myList.get(0).getId())))
+			.body("person[0].firstName", equalTo(myList.get(0).getFirstName()))
+			.body("person[0].yob", equalTo(Integer.toString(myList.get(0).getYob())))
+			.body("person[1].firstName",equalTo(myList.get(1).getFirstName()))
+			.body("person[2].firstName",equalTo(myList.get(2).getFirstName()))
+			.body("person.id", hasItems("1","2"))
+			.body("person.size()",equalTo(myList.size()))
+			.statusCode(200);
 	}
 	
 	public void clearCars(){
@@ -114,9 +129,31 @@ public class ServiceMockRESTDB {
 			.statusCode(200);
 	}
 	
-	public void getAllCarsData(){
-		
+	public void getAllCarsData(List<Car> myList){
+		given()
+			.contentType("application/json")
+		.when()
+			.get("/link/getAllCars/")
+		.then()
+			.body("car[0].id",equalTo(Long.toString(myList.get(0).getId())))
+			.body("car[0].model", equalTo(myList.get(0).getModel()))
+			.body("car[0].yop", equalTo(Integer.toString(myList.get(0).getYop())))
+			.body("car.id", hasItems("1","2"))
+			.body("car.size()",equalTo(myList.size()))
+			.statusCode(200);
 	}
+	
+	public void sellCar(long l, long m){
+
+		given()
+			.contentType("application/json")
+		.when()
+			.post("link/sellCar/"+l+"/"+m);
+		
+			
+	
+	}
+	
 
 	
 	
