@@ -103,7 +103,7 @@ public class LinksRESTService {
 	
 /////OTHER////////////////////////////////////////////////////////////////////////////////	
 	
-//	sellCar
+
 	
 	@POST
 	@Path("/sellCar/{carToSellId}/{ownerId}")
@@ -126,12 +126,5 @@ public class LinksRESTService {
 		Car c = pm.getCar(id);
 		return pm.getCarWithOwner(c);
 	}
-	
-//	getPersonWithCar
-	
-
-	
-	
-	
 	
 }

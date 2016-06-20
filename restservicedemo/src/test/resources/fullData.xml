@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-  <CAR C_ID="1" MODEL="BMW" YOP="2005"/>
+  <CAR/>
   <PERSON/>
 </dataset>

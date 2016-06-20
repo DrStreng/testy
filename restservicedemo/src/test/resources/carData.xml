@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dataset SYSTEM "car.dtd">
 <dataset>
-  <CAR C_ID="0" MODEL="Audi" YOP="1997"/>
-  <CAR C_ID="1" MODEL="Ford" YOP="1999"/>
-  <CAR C_ID="2" MODEL="Opel" YOP="2011" />
+  <CAR C_ID="2" MODEL="Fiat" YOP="1987"/>
+  <CAR C_ID="4" MODEL="Janko" YOP="1234"/>
 </dataset>
